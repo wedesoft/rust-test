@@ -3,7 +3,7 @@ fn prime(n: i32) -> Vec<i32> {
     let mut v = Vec::new();
     for i in 2..n {
         let mut is_prime = true;
-        for j in 2..i {
+        for j in v.iter() {
             if i % j == 0 {
                 is_prime = false;
                 break;
