@@ -1,3 +1,5 @@
+all: prime closure
+
 prime: prime.rs
 	rustc -o prime prime.rs
 
