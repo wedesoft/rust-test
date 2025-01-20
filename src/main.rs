@@ -288,4 +288,57 @@ fn main() {
     }
     let point3 = Point { x: 2.0, y: 3.0 };
     println!("point3 = {}", point3);
+
+    let v = [0, 1, 2, 3];
+    for _ in [0, 1] {
+        for i in v {
+            println!("i = {}", i);
+        }
+    };
+
+    // Define graph type as vector of tuples of integers
+    type Graph = Vec<(usize, usize)>;
+    let g: Graph = [(0, 1), (0, 2), (1, 2)].to_vec();
+    println!("g = {:?}", g);
+    for (i, j) in g {
+        println!("i = {}, j = {}", i, j);
+    }
+
+    // Dictionary
+    let mut h = std::collections::HashMap::new();
+    h.insert( "Jan", 31);
+    h.insert( "Feb", 30);
+    h.insert( "Mar", 31);
+    println!("h = {:?}", h);
+    println!("type of h = {}", std::any::type_name_of_val(&h));
+    for (k, v) in h {
+        println!("k = {}, v = {}", k, v);
+    }
+
+    struct FloatRange {
+        start: f64,
+        end: f64,
+        step: f64,
+    }
+
+    impl Iterator for FloatRange {
+        type Item = f64;
+        fn next(&mut self) -> Option<f64> {
+            if self.start > self.end {
+                None
+            } else {
+                let res = self.start;
+                self.start += self.step;
+                Some(res)
+            }
+        }
+    }
+    let range = FloatRange { start: 0.0, end: 1.0, step: 0.25 };
+    for x in range {
+        println!("x = {}", x);
+    }
+
+    let u = Some(42);
+    let v = u.map(|x| x + 1);
+    println!("v = {}", v.unwrap());
 }
