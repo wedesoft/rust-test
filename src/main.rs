@@ -271,4 +271,7 @@ fn main() {
     let option: Option<bool> = Some(true);
     let option = option.unwrap();
     println!("option = {}", option);
+
+    let value: Vec<i32> = (0..10).into_iter().map(|x| x * x).collect();
+    println!("value = {:?}", value);
 }
