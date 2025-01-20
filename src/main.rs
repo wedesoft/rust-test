@@ -1,3 +1,5 @@
+use std::io;
+
 fn the_answer() -> usize
 {
     42
@@ -8,12 +10,12 @@ const fn run_at_compile(x: u8) -> u8
     x + 1
 }
 
-fn ensure_positive(x: i32) -> Result<i32, &'static str>
+fn ensure_positive(x: i32) -> Result<i32, std::io::Error>
 {
     if x > 0 {
         Ok(x)
     } else {
-        Err("number was negative")
+        Err(io::Error::new(io::ErrorKind::Other, "number was negative"))
     }
 }
 
