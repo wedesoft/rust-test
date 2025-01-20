@@ -19,6 +19,12 @@ fn ensure_positive(x: i32) -> Result<i32, std::io::Error>
     }
 }
 
+fn call_ensure_positive(x: i32) -> Result<i32, std::io::Error>
+{
+    ensure_positive(x)?;
+    Ok(0)
+}
+
 fn add_numbers(x: i32, y: i32) -> i32
 {
     x + y
@@ -222,4 +228,7 @@ fn main() {
     }
 
     println!("add_numbers(1, 2) = {}", add_numbers(1, 2));
+
+    println!("call_ensure_positive(1) = {:?}", call_ensure_positive(1));
+    println!("call_ensure_positive(-1) = {:?}", call_ensure_positive(-1));
 }
