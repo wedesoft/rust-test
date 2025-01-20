@@ -277,4 +277,15 @@ fn main() {
 
     let v = (0..10).reduce(|x, y| x + y);
     println!("v = {:?}", v);
+
+    // Implement a trait for Point
+    impl std::fmt::Display for Point
+    {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result
+        {
+            write!(f, "({}, {})", self.x, self.y)
+        }
+    }
+    let point3 = Point { x: 2.0, y: 3.0 };
+    println!("point3 = {}", point3);
 }
