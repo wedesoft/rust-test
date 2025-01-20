@@ -309,23 +309,22 @@ fn main() {
         println!("k = {}, v = {}", k, v);
     }
 
+    trait Numeric: Copy + std::cmp::PartialOrd + std::ops::AddAssign + std::ops::SubAssign {}
+    impl Numeric for i32 {}
+    impl Numeric for f32 {}
+    impl Numeric for f64 {}
+
+    // Generic range object for comparable type
     #[derive(Copy, Clone)]
-    struct FloatRange {
-        start: f64,
-        end: f64,
-        step: f64,
+    struct NumericRange<T: Numeric> {
+        start: T,
+        end: T,
+        step: T,
     }
-
-    impl FloatRange {
-        fn new(start: f64, end: f64, step: f64) -> FloatRange
-        {
-            FloatRange { start: start, end: end, step: step }
-        }
-    }
-
-    impl Iterator for FloatRange {
-        type Item = f64;
-        fn next(&mut self) -> Option<f64> {
+    // Implement iterator for generic range object of comparable type
+    impl<T: Numeric> Iterator for NumericRange<T> {
+        type Item = T;
+        fn next(&mut self) -> Option<T> {
             if self.start > self.end {
                 None
             } else {
@@ -335,9 +334,8 @@ fn main() {
             }
         }
     }
-
-    impl DoubleEndedIterator for FloatRange {
-        fn next_back(&mut self) -> Option<f64> {
+    impl<T: Numeric> DoubleEndedIterator for NumericRange<T> {
+        fn next_back(&mut self) -> Option<T> {
             if self.start > self.end {
                 None
             } else {
@@ -348,7 +346,7 @@ fn main() {
         }
     }
 
-    let range = FloatRange::new(0.0, 1.0, 0.25);
+    let range = NumericRange { start: 0.0, end: 1.0, step: 0.25 };
     for x in range {
         println!("x = {}", x);
     }
@@ -393,4 +391,5 @@ fn main() {
     // Format string
     let x = 5;
     println!("{x}");
+
 }
