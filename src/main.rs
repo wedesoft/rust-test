@@ -255,4 +255,11 @@ fn main() {
     let file = read_to_string("resources/test.txt");
     let line = file.expect("Could not open file").lines().next().expect("No lines in file").to_string();
     println!("first line = {}", line);
+
+    {
+        let mut x = 5;
+        println!("x = {}", x);
+        x = 6;
+        println!("x = {}", x);
+    }
 }
