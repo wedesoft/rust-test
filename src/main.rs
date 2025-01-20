@@ -309,20 +309,20 @@ fn main() {
         println!("k = {}, v = {}", k, v);
     }
 
-    trait Numeric: Copy + std::cmp::PartialOrd + std::ops::AddAssign + std::ops::SubAssign {}
-    impl Numeric for i32 {}
-    impl Numeric for f32 {}
-    impl Numeric for f64 {}
+    trait Steppable: Copy + std::cmp::PartialOrd + std::ops::AddAssign + std::ops::SubAssign {}
+    impl Steppable for i32 {}
+    impl Steppable for f32 {}
+    impl Steppable for f64 {}
 
     // Generic range object for comparable type
     #[derive(Copy, Clone)]
-    struct NumericRange<T: Numeric> {
+    struct NumericRange<T: Steppable> {
         start: T,
         end: T,
         step: T,
     }
     // Implement iterator for generic range object of comparable type
-    impl<T: Numeric> Iterator for NumericRange<T> {
+    impl<T: Steppable> Iterator for NumericRange<T> {
         type Item = T;
         fn next(&mut self) -> Option<T> {
             if self.start > self.end {
@@ -334,7 +334,7 @@ fn main() {
             }
         }
     }
-    impl<T: Numeric> DoubleEndedIterator for NumericRange<T> {
+    impl<T: Steppable> DoubleEndedIterator for NumericRange<T> {
         fn next_back(&mut self) -> Option<T> {
             if self.start > self.end {
                 None
