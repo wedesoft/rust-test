@@ -296,14 +296,6 @@ fn main() {
         }
     };
 
-    // Define graph type as vector of tuples of integers
-    type Graph = Vec<(usize, usize)>;
-    let g: Graph = [(0, 1), (0, 2), (1, 2)].to_vec();
-    println!("g = {:?}", g);
-    for (i, j) in g {
-        println!("i = {}, j = {}", i, j);
-    }
-
     // Dictionary
     let mut h = std::collections::HashMap::new();
     h.insert( "Jan", 31);
@@ -352,4 +344,21 @@ fn main() {
     let u = Some(42);
     let v = u.map(|x| x + 1);
     println!("v = {}", v.unwrap());
+
+    // Define graph type as vector of tuples of integers
+    type Graph = Vec<(usize, usize)>;
+    let g: Graph = [(0, 1), (0, 2), (1, 2), (2, 3)].to_vec();
+    println!("g = {:?}", g);
+    for (i, j) in g.iter() {
+        println!("i = {}, j = {}", i, j);
+    }
+
+    // Adjacency map
+    let mut am = std::collections::HashMap::new();
+    for (k, v) in g.iter() {
+        am.insert(k, v);
+    };
+    for (k, v) in am {
+        println!("k = {}, v = {:?}", k, v);
+    }
 }
