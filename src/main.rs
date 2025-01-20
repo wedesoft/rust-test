@@ -119,11 +119,13 @@ fn main() {
     println!("pokemon = {}", pokemon as i8);
     println!("Pokemon::Raichu = {}", Pokemon::Raichu as i8);
 
+    #[derive(Debug, Clone, Copy)]
     struct Point
     {
         x: f64,
         y: f64,
     }
+
     let point = Point { x: 2.0, y: 3.0 };
     println!("point.x = {}", point.x);
     println!("point.y = {}", point.y);
