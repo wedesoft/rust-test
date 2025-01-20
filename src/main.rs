@@ -48,6 +48,12 @@ mod tests {
     {
         assert_eq!(super::add_numbers(1, 2), 3);
     }
+
+    #[test]
+    fn test_factorial()
+    {
+        assert_eq!(super::factorial(5), super::BigDecimal::from(120));
+    }
 }
 
 
