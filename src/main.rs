@@ -22,7 +22,7 @@ fn main() {
     println!("the_answer() = {}", the_answer());
     println!("run_at_compile(4) = {}", run_at_compile(4));
 
-    for i in 0..10 {
+    for i in 0..5 {
         println!("i = {}", i);
     }
 
@@ -119,7 +119,7 @@ fn main() {
     println!("pokemon = {}", pokemon as i8);
     println!("Pokemon::Raichu = {}", Pokemon::Raichu as i8);
 
-    #[derive(Debug, Clone, Copy)]
+    #[derive(Debug, Clone, Copy, PartialEq)]
     struct Point
     {
         x: f64,
@@ -140,4 +140,14 @@ fn main() {
     let point2 = Point::new(2.0, 3.0);
     println!("point2.x = {}", point2.x);
     println!("point2.y = {}", point2.y);
+
+    // Each value can only have one owner at any one time.
+    let s1 = String::from("hello");
+    let s2 = s1;
+    // Can't print s1 any more because String does not implement Copy.
+    println!("s2 = {}", s2);
+    let s3 = s2.clone();
+    // String implements Clone (an explicit copy operation).
+    println!("s2 = {}", s2);
+    println!("s3 = {}", s3);
 }
