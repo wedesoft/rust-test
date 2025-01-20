@@ -274,4 +274,7 @@ fn main() {
 
     let value: Vec<i32> = (0..10).into_iter().map(|x| x * x).collect();
     println!("value = {:?}", value);
+
+    let v = (0..10).reduce(|x, y| x + y);
+    println!("v = {:?}", v);
 }
