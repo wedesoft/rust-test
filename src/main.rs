@@ -1,4 +1,5 @@
 use std::io;
+use std::fs::read_to_string;
 use bigdecimal::BigDecimal;
 
 fn the_answer() -> usize
@@ -243,4 +244,9 @@ fn main() {
     println!("call_ensure_positive(-1) = {:?}", call_ensure_positive(-1));
 
     println!("factorial({}) = {}", 100, factorial(100));
+
+    // Read first line from file "test.txt"
+    let file = read_to_string("resources/test.txt");
+    let line = file.expect("Could not open file").lines().next().expect("No lines in file").to_string();
+    println!("first line = {}", line);
 }
