@@ -315,6 +315,7 @@ fn main() {
         println!("k = {}, v = {}", k, v);
     }
 
+    #[derive(Copy, Clone)]
     struct FloatRange {
         start: f64,
         end: f64,
@@ -341,6 +342,9 @@ fn main() {
         }
     }
     let range = FloatRange::new(0.0, 1.0, 0.25);
+    for x in range {
+        println!("x = {}", x);
+    }
     for x in range {
         println!("x = {}", x);
     }
