@@ -193,4 +193,13 @@ fn main() {
     // Static lifetime means that it exists for the duration of the program.
     let s7: &'static str = "hello";
     println!("s7 = {}", s7);
+
+    enum Pokemon2<'a>
+    {
+        Pichu,
+        Pikachu,
+        Raichu,
+        AnythingElse(&'a str),
+    }
+    let pokemon2 = Pokemon2::AnythingElse("Other");
 }
