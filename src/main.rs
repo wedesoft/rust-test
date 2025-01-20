@@ -150,4 +150,47 @@ fn main() {
     // String implements Clone (an explicit copy operation).
     println!("s2 = {}", s2);
     println!("s3 = {}", s3);
+
+    // Function moves ownership.
+    fn print_string(s: String) {
+        println!("s = {}", s);
+    }
+    let s4 = String::from("hello");
+    print_string(s4);
+    // print_string(s4);
+
+    // Use reference, i.e. borrow it.
+    fn print_string_ref(s: &String)
+    {
+        println!("s = {}", s);
+    }
+    let s5 = String::from("hello");
+    print_string_ref(&s5);
+    print_string_ref(&s5);
+
+    // Use reference to a string slice.
+    fn print_string_slice(s: &str)
+    {
+        println!("s = {}", s);
+    }
+    let s6 = "hello";
+    print_string_slice(&s6);
+    print_string_slice(&s6);
+
+    // Mutable variables.
+    let mut m = 0;
+    m += 1;
+    assert_eq!(m, 1);
+
+    // You can only have one mutable reference to a variable at a time.
+    let m2 = &mut m;
+    *m2 += 1;
+    // You can have multiple immutable references.
+    let m3 = &m;
+    assert_eq!(m, 2);
+    assert_eq!(*m3, 2);
+
+    // Static lifetime means that it exists for the duration of the program.
+    let s7: &'static str = "hello";
+    println!("s7 = {}", s7);
 }
