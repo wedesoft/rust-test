@@ -1,4 +1,5 @@
 use std::io;
+use bigdecimal::BigDecimal;
 
 fn the_answer() -> usize
 {
@@ -28,6 +29,15 @@ fn call_ensure_positive(x: i32) -> Result<i32, std::io::Error>
 fn add_numbers(x: i32, y: i32) -> i32
 {
     x + y
+}
+
+fn factorial(x: i32) -> BigDecimal
+{
+    if x == 1 {
+        BigDecimal::from(1)
+    } else {
+        x * factorial(x - 1)
+    }
 }
 
 #[cfg(test)]
@@ -231,4 +241,6 @@ fn main() {
 
     println!("call_ensure_positive(1) = {}", call_ensure_positive(1).unwrap());
     println!("call_ensure_positive(-1) = {:?}", call_ensure_positive(-1));
+
+    println!("factorial({}) = {}", 100, factorial(100));
 }

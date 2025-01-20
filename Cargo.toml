@@ -8,3 +8,4 @@ name = "prime"
 path = "src/prime.rs"
 
 [dependencies]
+bigdecimal = "0.4.7"
