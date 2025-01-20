@@ -333,11 +333,24 @@ fn main() {
             }
         }
     }
+
+    impl DoubleEndedIterator for FloatRange {
+        fn next_back(&mut self) -> Option<f64> {
+            if self.start > self.end {
+                None
+            } else {
+                let res = self.end;
+                self.end -= self.step;
+                Some(res)
+            }
+        }
+    }
+
     let range = FloatRange::new(0.0, 1.0, 0.25);
     for x in range {
         println!("x = {}", x);
     }
-    for x in range {
+    for x in range.rev() {
         println!("x = {}", x);
     }
 
@@ -356,7 +369,7 @@ fn main() {
     // Adjacency map
     let mut am = std::collections::HashMap::new();
     for (k, v) in g.iter() {
-        am.insert(k, v);
+        am.entry(k).or_insert(vec![]).push(*v);
     };
     for (k, v) in am {
         println!("k = {}, v = {:?}", k, v);
