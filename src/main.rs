@@ -17,6 +17,21 @@ fn ensure_positive(x: i32) -> Result<i32, &'static str>
     }
 }
 
+fn add_numbers(x: i32, y: i32) -> i32
+{
+    x + y
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_add_numbers()
+    {
+        assert_eq!(super::add_numbers(1, 2), 3);
+    }
+}
+
+
 fn main() {
     println!("Hello, world!");
     println!("the_answer() = {}", the_answer());
@@ -196,10 +211,13 @@ fn main() {
 
     enum Pokemon2<'a>
     {
-        Pichu,
-        Pikachu,
-        Raichu,
         AnythingElse(&'a str),
     }
     let pokemon2 = Pokemon2::AnythingElse("Other");
+    {
+        let Pokemon2::AnythingElse(s) = pokemon2;
+        println!("s = {}", s);
+    }
+
+    println!("add_numbers(1, 2) = {}", add_numbers(1, 2));
 }
