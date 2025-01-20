@@ -229,6 +229,6 @@ fn main() {
 
     println!("add_numbers(1, 2) = {}", add_numbers(1, 2));
 
-    println!("call_ensure_positive(1) = {:?}", call_ensure_positive(1));
+    println!("call_ensure_positive(1) = {}", call_ensure_positive(1).unwrap());
     println!("call_ensure_positive(-1) = {:?}", call_ensure_positive(-1));
 }
