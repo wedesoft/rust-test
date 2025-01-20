@@ -2,6 +2,7 @@ use std::io;
 use std::fs::read_to_string;
 use bigdecimal::BigDecimal;
 use ndarray::array;
+use ndarray::prelude::*;
 
 fn the_answer() -> usize
 {
@@ -381,6 +382,11 @@ fn main() {
     println!("a.shape() = {:?}", a.shape());
     let b = a.map(|x| x + 1);
     println!("b = {:?}", b);
-    let c = a + array!([0, 100, 200]);
+    let c = &a + array!([0, 100, 200]);
     println!("c = {:?}", c);
+    println!("c.sum() = {}", &a.sum());
+
+    println!("a[1..2, ..] = {:?}", a.slice(s![1..2, ..]));
+    // Get row of array
+    println!("a[1, ..] = {:?}", a.slice(s![1, ..]));
 }
