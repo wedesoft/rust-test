@@ -321,6 +321,13 @@ fn main() {
         step: f64,
     }
 
+    impl FloatRange {
+        fn new(start: f64, end: f64, step: f64) -> FloatRange
+        {
+            FloatRange { start: start, end: end, step: step }
+        }
+    }
+
     impl Iterator for FloatRange {
         type Item = f64;
         fn next(&mut self) -> Option<f64> {
@@ -333,7 +340,7 @@ fn main() {
             }
         }
     }
-    let range = FloatRange { start: 0.0, end: 1.0, step: 0.25 };
+    let range = FloatRange::new(0.0, 1.0, 0.25);
     for x in range {
         println!("x = {}", x);
     }
