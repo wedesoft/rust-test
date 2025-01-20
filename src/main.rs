@@ -256,10 +256,15 @@ fn main() {
     let line = file.expect("Could not open file").lines().next().expect("No lines in file").to_string();
     println!("first line = {}", line);
 
-    {
-        let mut x = 5;
-        println!("x = {}", x);
-        x = 6;
-        println!("x = {}", x);
-    }
+    // Mutable variable
+    let mut x = 5;
+    println!("x = {}", x);
+    x = 6;
+    println!("x = {}", x);
+
+    // Shadowing
+    let u: usize = 5;
+    println!("u = {}", u);
+    let u: usize = 6;
+    println!("u = {}", u);
 }
