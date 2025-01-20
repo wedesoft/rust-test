@@ -389,4 +389,8 @@ fn main() {
     println!("a[1..2, ..] = {:?}", a.slice(s![1..2, ..]));
     // Get row of array
     println!("a[1, ..] = {:?}", a.slice(s![1, ..]));
+
+    // Format string
+    let x = 5;
+    println!("{x}");
 }
