@@ -263,8 +263,12 @@ fn main() {
     println!("x = {}", x);
 
     // Shadowing
-    let u: usize = 5;
+    let u = 5;
     println!("u = {}", u);
-    let u: usize = 6;
+    let u = u + 1;
     println!("u = {}", u);
+
+    let option: Option<bool> = Some(true);
+    let option = option.unwrap();
+    println!("option = {}", option);
 }
