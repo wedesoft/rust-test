@@ -1,6 +1,7 @@
 use std::io;
 use std::fs::read_to_string;
 use bigdecimal::BigDecimal;
+use ndarray::array;
 
 fn the_answer() -> usize
 {
@@ -374,4 +375,12 @@ fn main() {
     for (k, v) in am {
         println!("k = {}, v = {:?}", k, v);
     }
+
+    let a = array![[1, 2, 3], [4, 5, 6]];
+    println!("a = {:?}", a);
+    println!("a.shape() = {:?}", a.shape());
+    let b = a.map(|x| x + 1);
+    println!("b = {:?}", b);
+    let c = a + array!([0, 100, 200]);
+    println!("c = {:?}", c);
 }
