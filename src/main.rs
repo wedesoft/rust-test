@@ -300,14 +300,15 @@ fn main() {
 
     // Dictionary
     let mut h = std::collections::HashMap::new();
-    h.insert( "Jan", 31);
-    h.insert( "Feb", 30);
-    h.insert( "Mar", 31);
+    h.insert("Jan", 31);
+    h.insert("Feb", 30);
+    h.insert("Mar", 31);
     println!("h = {:?}", h);
     println!("type of h = {}", std::any::type_name_of_val(&h));
-    for (k, v) in h {
+    for (k, v) in &h {
         println!("k = {}, v = {}", k, v);
     }
+    assert!(h.contains_key("Mar"));
 
     trait Steppable: Copy + std::cmp::PartialOrd + std::ops::AddAssign + std::ops::SubAssign {}
     impl Steppable for i32 {}
@@ -392,4 +393,123 @@ fn main() {
     let x = 5;
     println!("{x}");
 
+    // Vector
+    let mut v: Vec<usize> = Vec::new();
+    v.push(1);
+    v.push(2);
+    v.push(3);
+    println!("v = {:?}", v);
+    assert_eq!(None, v.get(3));
+    assert_eq!(Some(&1), v.get(0));
+
+    fn return_first_element(x: &[usize]) -> Option<usize> {
+        match x.len() {
+            0 => None,
+            _ => Some(x[0]),
+        }
+    }
+    assert_eq!(Some(1), return_first_element(&v));
+    assert_eq!(Some(2), return_first_element(&v[1..]));
+
+    // Fifo queue
+    let mut q = std::collections::VecDeque::new();
+    q.push_back(1);
+    q.push_back(2);
+    println!("q = {:?}", q);
+    assert_eq!(Some(1), q.pop_front());
+    q.push_back(3);
+    assert_eq!(Some(2), q.pop_front());
+    assert_eq!(Some(3), q.pop_front());
+
+    let mut a = [1, 2, 3];
+    a[1] = 4;
+    println!("a = {:?}", a);
+
+    // Turbofish ::<>
+    let a = [1, 2, 3];
+    let s = a.iter().map(|x| x + 1).filter(|x| x < &4).sum::<usize>();
+    assert_eq!(s, 5);
+
+    // Linked list
+    let mut list = std::collections::LinkedList::new();
+    list.push_front(1);
+    list.push_front(2);
+    list.push_front(3);
+    println!("list = {:?}", list);
+    assert_eq!(Some(3), list.pop_front());
+    assert_eq!(Some(2), list.pop_front());
+    assert_eq!(Some(1), list.pop_front());
+
+    fn identity<T>(x: T) -> T {
+        x
+    }
+    let x = identity(42);
+    println!("x = {}", x);
+    let y = identity("test");
+    println!("y = {}", y);
+
+    fn add<T: std::ops::Add<Output = T>>(x: T, y: T) -> T {
+        x + y
+    }
+    let z = add(1, 2);
+    println!("z = {}", z);
+
+    fn print<T: std::fmt::Display>(x: T) {
+        println!("x = {}", x);
+    }
+    print("hello");
+
+    fn print_sum<T: std::ops::Add<Output = T> + std::fmt::Display>(x: T, y: T) {
+        println!("x + y = {}", x + y);
+    }
+    print_sum(1, 2);
+
+    // Type coercion
+    trait Add<T, U, V> {
+        fn plus(t: T, u: U) -> V;
+    }
+    impl Add<i16, u32, i32> for (i16, u32) {
+        fn plus(x: i16, y: u32) -> i32 {
+            x as i32 + y as i32
+        }
+    }
+    let a = 1_i16;
+    let b = 2_u32;
+    println!("plusx(1, 2) = {}", <(i16, u32)>::plus(a, b));
+    println!("type of plusx(1, 2) is {}", std::any::type_name_of_val(&<(i16, u32)>::plus(a, b)));
+
+    struct Human;
+    struct Dog;
+
+    trait Speak {
+        fn speak(&self) -> String;
+    }
+    impl Speak for Human {
+        fn speak(&self) -> String {
+            "Hello".to_string()
+        }
+    }
+    impl Speak for Dog {
+        fn speak(&self) -> String {
+            "Woof".to_string()
+        }
+    }
+    fn make_speak(t: &dyn Speak) {
+        println!("{}", t.speak());
+    }
+    let human = Human {};
+    make_speak(&human);
+    let dog = Dog {};
+    make_speak(&dog);
+    fn mammal_with_legs(num_legs: i32) -> Box<dyn Speak> {
+        if num_legs == 4 {
+            Box::new(Dog {})
+        } else {
+            Box::new(Human {})
+        }
+    }
+    let x = mammal_with_legs(4);
+    println!("4 legs -> {}", x.speak());
+    let y = mammal_with_legs(2);
+    println!("2 legs -> {}", y.speak());
 }
