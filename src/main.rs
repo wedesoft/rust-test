@@ -473,6 +473,12 @@ fn main() {
             x as i32 + y as i32
         }
     }
+    impl Add<u32, i16, i32> for (u32, i16) {
+        fn plus(x: u32, y: i16) -> i32 {
+            x as i32 + y as i32
+        }
+    }
+
     let a = 1_i16;
     let b = 2_u32;
     println!("plusx(1, 2) = {}", <(i16, u32)>::plus(a, b));
@@ -512,4 +518,42 @@ fn main() {
     println!("4 legs -> {}", x.speak());
     let y = mammal_with_legs(2);
     println!("2 legs -> {}", y.speak());
+
+    // trait Coerce {
+    //     type First;
+    //     type Second;
+    //     type Item;
+    // }
+
+    // impl Coerce for (i16, u32) {
+    //     type First = i16;
+    //     type Second = u32;
+    //     type Item = i32;
+    // }
+    // fn plusx<(T, U): Coerce>(x: T, y: U) -> <(T, U) as Coerce>::Item {
+    //     x as <(T, U) as Coerce>::Item + y as <(T, U) as Coerce>::Item
+    // }
+    // fn plusx<C: Coerce>(x: <C as Coerce>::First, y: <C as Coerce>::Second) -> <C as Coerce>::Item
+    //     where <C as Coerce>::Item: std::ops::Add<Output = <C as Coerce>::Item>
+    // {
+    //     <<C as Coerce>::First as Into<T>>::into(x);
+    // }
+    // println!("plusx(1i36, 2u32) = {}", plusx::<(i16, u32)>(1i16, 2u32));
+
+    // Closures
+    let square = |x| x * x;
+    assert_eq!(9, square(3));
+    fn takes_a_lambda(x: usize, f: fn(usize) -> usize) -> usize {
+        f(x)
+    }
+    assert_eq!(9, takes_a_lambda(3, square));
+    fn cv<T: Into<usize>>(a: T) -> usize {
+        a.into()
+    }
+    assert_eq!(1, cv(true));
+
+    let mut v: Vec<usize> = vec![1, 2, 3];
+    let x: usize = 2;
+    let v = v.into_iter().filter(|i| *i > x).collect::<Vec<usize>>();
+    assert_eq!(v, vec![3]);
 }
