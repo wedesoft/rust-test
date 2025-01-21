@@ -7,6 +7,11 @@ edition = "2021"
 name = "prime"
 path = "src/prime.rs"
 
+[[bin]]
+name = "euler"
+path = "src/euler.rs"
+
 [dependencies]
 bigdecimal = "0.4.7"
 ndarray = "0.16.1"
+sets = "1.2.1"

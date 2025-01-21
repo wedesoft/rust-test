@@ -552,8 +552,8 @@ fn main() {
     }
     assert_eq!(1, cv(true));
 
-    let mut v: Vec<usize> = vec![1, 2, 3];
-    let x: usize = 2;
+    let v = vec![1, 2, 3];
+    let x = 2;
     let v = v.into_iter().filter(|i| *i > x).collect::<Vec<usize>>();
     assert_eq!(v, vec![3]);
 }

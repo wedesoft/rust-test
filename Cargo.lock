@@ -22,6 +22,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "indxvec"
+version = "1.9.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f80ec91439747afc38510dd9ddac3d776f3485197b9b7d6cc81c719db5cd8faa"
+
+[[package]]
 name = "libm"
 version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -116,4 +122,14 @@ version = "0.1.0"
 dependencies = [
  "bigdecimal",
  "ndarray",
+ "sets",
+]
+
+[[package]]
+name = "sets"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fa6cf94b22f3c580d1efd5443c1b8090966fd2e0378d60a94de0c243d86c8c5c"
+dependencies = [
+ "indxvec",
 ]

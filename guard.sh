@@ -1,6 +1,6 @@
 #!/bin/sh
 while true; do
   clear;
-  cargo run --bin rust-test;
+  cargo run --bin euler;
   git ls-files | xargs inotifywait -e close_write;
 done
