@@ -78,8 +78,12 @@ fn main()
             return self.rows[row].intersection(&self.cols[col]).intersection(&self.boxes[box_]);
         }
     }
-    let mut sudoku = Sudoku::new();
+    let sudoku = Sudoku::new();
     println!("{:?}", sudoku.indices(0, 3));
-    // read sudoku from file
-    let mut lines = read_to_string("sudoku.txt").unwrap().lines();
+    // read first line from sudoku.txt file
+    let file = read_to_string("sudoku.txt");
+    let binding = file.expect("Could not open file");
+    let mut lines = binding.lines();
+    let line = lines.next().expect("No lines in file").to_string();
+    println!("{}", line);
 }
